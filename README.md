@@ -1,10 +1,9 @@
-# bash-examples
+# parallel-examples
 
-## parallel 
+`parallel` allows you to replace messy loops with more elegant and concise code.
 
-`parallel` allows you to easily run the same script on different samples.
-
-Here is a dummy sample processing script (e.g. `process_sample.sh`) that takes a sample name as an input and does something:
+Here is a dummy sample processing script (e.g. `process_sample.sh`) that takes a
+sample name as an input and does something:
 
     #!/usr/bin/bash
 
@@ -16,7 +15,7 @@ Here is a dummy sample processing script (e.g. `process_sample.sh`) that takes a
 
     # Add code here to process the sample
 
-Here is a dummy script showing how to create a list of samples with replicates 
+Here is how you can create a list of samples with replicates
 
     # Create an ids file
     parallel 'echo {1}_{2}' ::: WT EXP ::: 1 2 3 > ids.txt
@@ -30,7 +29,7 @@ That produces the following file:
     EXP_2
     EXP_3
 
-Here is how to use parallel to excute that processing script for each sample:
+Here is how to use parallel to execute that processing script for each sample:
 
     # Run a script that processes each id
     cat ids.txt | parallel 'process_sample.sh {}'
@@ -39,3 +38,11 @@ And if you are using a scheduler, this works too (e.g. here using SLURM):
 
     # Run a script that processes each id
     cat ids.txt | parallel 'sbatch process_sample.sh {}'
+
+An alternative using loops is a little messier and runs serially:
+
+    for i in $(cat ids.txt); do sbatch process_sample.sh $i; done
+
+## NOTES on parallel
+
+By default, `parallel` runs as many threads as it has tasks to perform.
