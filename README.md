@@ -17,6 +17,7 @@ Here is a dummy sample processing script that takes a sample name as an input an
     # Add code here to process the sample
 
 Here is a dummy script showing how to create a list of samples with replicates 
+
     # Create an ids file
     parallel 'echo {1}_{2}' ::: WT EXP ::: 1 2 3 > ids.txt
 
