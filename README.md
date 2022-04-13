@@ -4,7 +4,7 @@
 
 `parallel` allows you to easily run the same script on different samples.
 
-Here is a dummy sample processing script that takes a sample name as an input and does something:
+Here is a dummy sample processing script (e.g. `process_sample.sh`) that takes a sample name as an input and does something:
 
     #!/usr/bin/bash
 
@@ -33,9 +33,9 @@ That produces the following file:
 Here is how to use parallel to excute that processing script for each sample:
 
     # Run a script that processes each id
-    cat ids.txt | parallel 'script.sh {}'
+    cat ids.txt | parallel 'process_sample.sh {}'
 
 And if you are using a scheduler, this works too (e.g. here using SLURM):
 
     # Run a script that processes each id
-    cat ids.txt | parallel 'sbatch script.sh {}'
+    cat ids.txt | parallel 'sbatch process_sample.sh {}'
